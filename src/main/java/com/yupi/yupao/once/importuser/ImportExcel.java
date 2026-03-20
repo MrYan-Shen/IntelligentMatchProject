@@ -7,8 +7,6 @@ import java.util.List;
 /**
  * 导入 Excel
  *
- * @author <a href="https://github.com/liyupi">程序员鱼皮</a>
- * @from <a href="https://yupi.icu">编程导航知识星球</a>
  */
 public class ImportExcel {
 
@@ -17,25 +15,24 @@ public class ImportExcel {
      */
     public static void main(String[] args) {
         // todo 记得改为自己的测试文件
-        String fileName = "E:\\星球项目\\yupao-backend\\src\\main\\resources\\testExcel.xlsx";
+        String fileName = "D:\\IntelligentMatchProject\\yupao-backend-master\\src\\main\\resources\\testExcel.xlsx";
 //        readByListener(fileName);
         synchronousRead(fileName);
     }
 
     /**
      * 监听器读取
-     *
+     * 先创建监听器、在读取文件时绑定监听器。单独抽离处理逻辑，代码清晰易于维护；一条一条处理，适用于数据量大的场景。
      * @param fileName
      */
     public static void readByListener(String fileName) {
         EasyExcel.read(fileName, XingQiuTableUserInfo.class, new TableListener()).sheet().doRead();
     }
 
-    // [加入我们](https://yupi.icu) 从 0 到 1 项目实战，经验拉满！10+ 原创项目手把手教程、7 日项目提升训练营、1000+ 项目经验笔记、60+ 编程经验分享直播
 
     /**
      * 同步读
-     *
+     * 无需创建监听器，一次性获取完整数据。方便简单，但是数据量大时会有等待时常，也可能内存溢出
      * @param fileName
      */
     public static void synchronousRead(String fileName) {
