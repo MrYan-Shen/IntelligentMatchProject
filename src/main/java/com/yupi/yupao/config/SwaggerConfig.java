@@ -14,12 +14,13 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2WebMvc;
 
 /**
  * 自定义 Swagger 接口文档的配置
+ *  * swagger2 配置类（就这一个文件）
  * <a href="http://localhost:8080/api/doc.html"> 地址 </a>
  *
  */
 @Configuration
 @EnableSwagger2WebMvc
-@Profile({"dev", "test"})
+@Profile({"dev", "test"}) //指定在dev、test环境加载
 public class SwaggerConfig {
 
     @Bean(value = "defaultApi2")

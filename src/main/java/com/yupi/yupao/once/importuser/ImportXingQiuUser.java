@@ -23,8 +23,8 @@ public class ImportXingQiuUser {
         System.out.println("总数 = " + userInfoList.size());
         Map<String, List<XingQiuTableUserInfo>> listMap =
                 userInfoList.stream()
-                        .filter(userInfo -> StringUtils.isNotEmpty(userInfo.getUsername()))
-                        .collect(Collectors.groupingBy(XingQiuTableUserInfo::getUsername));
+                        .filter(userInfo -> StringUtils.isNotEmpty(userInfo.getUsername())) //用户信息不能为空
+                        .collect(Collectors.groupingBy(XingQiuTableUserInfo::getUsername)); //根据用户名分组
         for (Map.Entry<String, List<XingQiuTableUserInfo>> stringListEntry : listMap.entrySet()) {
             if (stringListEntry.getValue().size() > 1) {
                 System.out.println("username = " + stringListEntry.getKey());
