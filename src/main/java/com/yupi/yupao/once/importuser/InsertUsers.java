@@ -19,6 +19,7 @@ public class InsertUsers {
 
     /**
      * 批量插入用户
+     * stopWatch: 计时器
      */
 //    @Scheduled(initialDelay = 5000, fixedRate = Long.MAX_VALUE)
     public void doInsertUsers() {
@@ -28,11 +29,11 @@ public class InsertUsers {
         final int INSERT_NUM = 1000;
         for (int i = 0; i < INSERT_NUM; i++) {
             User user = new User();
-            user.setUsername("假鱼皮");
-            user.setUserAccount("fakeyupi");
+            user.setUsername("假hechang");
+            user.setUserAccount("fakehechang");
             user.setAvatarUrl("https://636f-codenav-8grj8px727565176-1256524210.tcb.qcloud.la/img/logo.png");
             user.setGender(0);
-            user.setUserPassword("12345678");
+            user.setUserPassword("123456789");
             user.setPhone("123");
             user.setEmail("123@qq.com");
             user.setTags("[]");

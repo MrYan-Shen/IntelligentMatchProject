@@ -13,8 +13,6 @@ import java.util.concurrent.*;
 /**
  * 导入用户测试
  *
- * @author <a href="https://github.com/liyupi">程序员鱼皮</a>
- * @from <a href="https://yupi.icu">编程导航知识星球</a>
  */
 @SpringBootTest
 public class InsertUsersTest {
@@ -35,11 +33,11 @@ public class InsertUsersTest {
         List<User> userList = new ArrayList<>();
         for (int i = 0; i < INSERT_NUM; i++) {
             User user = new User();
-            user.setUsername("原_创 【鱼_皮】https://t.zsxq.com/0emozsIJh");
-            user.setUserAccount("fakeyupi");
+            user.setUsername("假hechang");
+            user.setUserAccount("fakehechang");
             user.setAvatarUrl("https://636f-codenav-8grj8px727565176-1256524210.tcb.qcloud.la/img/logo.png");
             user.setGender(0);
-            user.setUserPassword("12345678");
+            user.setUserPassword("123456789");
             user.setPhone("123");
             user.setEmail("123@qq.com");
             user.setTags("[]");
@@ -70,13 +68,13 @@ public class InsertUsersTest {
             while (true) {
                 j++;
                 User user = new User();
-                user.setUsername("假鱼皮");
-                user.setUserAccount("fakeyupi");
+                user.setUsername("假hechang");
+                user.setUserAccount("fakehechang");
                 user.setAvatarUrl("https://636f-codenav-8grj8px727565176-1256524210.tcb.qcloud.la/img/logo.png");
                 user.setGender(0);
-                user.setUserPassword("12345678");
-                user.setPhone("123");
-                user.setEmail("123@qq.com");
+                user.setUserPassword("123456789");
+                user.setPhone("12356");
+                user.setEmail("12356@qq.com");
                 user.setTags("[]");
                 user.setUserStatus(0);
                 user.setUserRole(0);
