@@ -20,6 +20,7 @@ public class InsertUsersTest {
     @Resource
     private UserService userService;
 
+    // 线程池（参数：默认线程池数量，最大线程池数量，存活时间）
     private ExecutorService executorService = new ThreadPoolExecutor(40, 1000, 10000, TimeUnit.MINUTES, new ArrayBlockingQueue<>(10000));
 
     /**
@@ -46,7 +47,7 @@ public class InsertUsersTest {
             user.setPlanetCode("11111111");
             userList.add(user);
         }
-        // 20 秒 10 万条
+        // 20 秒 10 万条（mybatisPlus自带的批量插入）
         userService.saveBatch(userList, 10000);
         stopWatch.stop();
         System.out.println(stopWatch.getTotalTimeMillis());
@@ -54,6 +55,7 @@ public class InsertUsersTest {
 
     /**
      * 并发批量插入用户
+     * CompletableFuture：线程异步执行，可以批量插入
      */
     @Test
     public void doConcurrencyInsertUsers() {
