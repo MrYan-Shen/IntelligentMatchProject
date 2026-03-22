@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
- * 缓存预热任务
+ * 缓存预热任务（定时）
  *
  */
 @Component
@@ -47,7 +47,12 @@ public class PreCacheJob {
     public void doCacheRecommendUser() {
         RLock lock = redissonClient.getLock("yupao:precachejob:docache:lock");
         try {
-            // 只有一个线程能获取到锁
+            /* 只有一个线程能获取到锁
+            *   tryLock参数：第一个waitTime：尝试获取锁的时间，超过这个时间则放弃获取锁（只一次，不会再尝试获取锁）
+            *               第二个leaseTime：锁的过期时间，超过这个时间锁自动释放（可多次尝试获取锁），
+            *                   看门狗机制：-1：不设置过期时间，锁自动释放，锁自动续期
+            *               第三个TimeUnit：锁的时间单位
+            * */
             if (lock.tryLock(0, -1, TimeUnit.MILLISECONDS)) {
                 System.out.println("getLock: " + Thread.currentThread().getId());
                 for (Long userId : mainUserList) {

@@ -10,10 +10,10 @@ import org.springframework.context.annotation.Configuration;
 
 /**
  * Redisson 配置
- *
+ * <a href="https://github.com/redisson/redisson#quick-start">文档</a>
  */
 @Configuration
-@ConfigurationProperties(prefix = "spring.redis")
+@ConfigurationProperties(prefix = "spring.redis") // 从 application.yml 中读取 spring.redis 的配置
 @Data
 public class RedissonConfig {
 
@@ -21,14 +21,18 @@ public class RedissonConfig {
 
     private String port;
 
+    /*
+    * @Bean 的的使用：
+    *   创建一个 Bean 对象，并交给 Spring 管理。其他地方可以通过 @Autowired，@Resource 来获取这个 Bean 对象。
+    * */
     @Bean
     public RedissonClient redissonClient() {
         // 1. 创建配置
         Config config = new Config();
+        // 2. 绑定地址和端口
         String redisAddress = String.format("redis://%s:%s", host, port);
         config.useSingleServer().setAddress(redisAddress).setDatabase(3);
-        // 2. 创建实例
-        RedissonClient redisson = Redisson.create(config);
-        return redisson;
+        // 3. 创建实例
+        return Redisson.create(config);
     }
 }

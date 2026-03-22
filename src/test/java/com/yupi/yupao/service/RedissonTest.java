@@ -17,8 +17,6 @@ import java.util.concurrent.TimeUnit;
 /**
  * Redisson 测试
  *
- * @author <a href="https://github.com/liyupi">程序员鱼皮</a>
- * @from <a href="https://yupi.icu">编程导航知识星球</a>
  */
 @SpringBootTest
 public class RedissonTest {
@@ -32,7 +30,6 @@ public class RedissonTest {
         List<String> list = new ArrayList<>();
         list.add("yupi");
         System.out.println("list:" + list.get(0));
-
         list.remove(0);
 
         // 数据存在 redis 的内存中
@@ -46,7 +43,9 @@ public class RedissonTest {
         map.put("yupi", 10);
         map.get("yupi");
 
-        RMap<Object, Object> map1 = redissonClient.getMap("test-map");
+        RMap<Object, Object> rMap = redissonClient.getMap("test-map");
+        rMap.put("yupi", 10);
+        System.out.println("rmap:" + rMap.get("yupi"));
 
         // set
 
