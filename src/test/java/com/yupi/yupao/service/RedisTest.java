@@ -12,12 +12,11 @@ import javax.annotation.Resource;
 /**
  * Redis 测试
  *
- * @author <a href="https://github.com/liyupi">程序员鱼皮</a>
- * @from <a href="https://yupi.icu">编程导航知识星球</a>
  */
 @SpringBootTest
 public class RedisTest {
 
+    //引入RedisTemplate操作Redis
     @Resource
     private RedisTemplate redisTemplate;
 
@@ -34,13 +33,18 @@ public class RedisTest {
         valueOperations.set("yupiUser", user);
         // 查
         Object yupi = valueOperations.get("yupiString");
-        Assertions.assertTrue("dog".equals((String) yupi));
+        //Assertions.assertTrue：判断yupi是否等于"dog"
+        Assertions.assertTrue("dog".equals(yupi));
         yupi = valueOperations.get("yupiInt");
         Assertions.assertTrue(1 == (Integer) yupi);
         yupi = valueOperations.get("yupiDouble");
         Assertions.assertTrue(2.0 == (Double) yupi);
         System.out.println(valueOperations.get("yupiUser"));
-        valueOperations.set("yupiString", "dog");
+        // 改
+        System.out.println("改之前的yupiString：" + valueOperations.get("yupiString"));
+        valueOperations.set("yupiString", "cat");
+        System.out.println("改之后的yupiString：" + valueOperations.get("yupiString"));
+        // 删
         redisTemplate.delete("yupiString");
     }
 }

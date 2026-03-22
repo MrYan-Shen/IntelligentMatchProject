@@ -40,6 +40,9 @@ public class PreCacheJob {
     private List<Long> mainUserList = Arrays.asList(1L);
 
     // 每天执行，预热推荐用户
+    // crontab表达式：秒 分 时 日 月 年。直接用找现成的生成
+    // - https://cron.qqe2.com/
+    //- https://www.matools.com/crontab/
     @Scheduled(cron = "0 31 0 * * *")
     public void doCacheRecommendUser() {
         RLock lock = redissonClient.getLock("yupao:precachejob:docache:lock");

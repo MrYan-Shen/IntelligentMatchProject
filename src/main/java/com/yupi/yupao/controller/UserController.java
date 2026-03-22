@@ -123,8 +123,11 @@ public class UserController {
     @GetMapping("/recommend")
     public BaseResponse<Page<User>> recommendUsers(long pageSize, long pageNum, HttpServletRequest request) {
         User loginUser = userService.getLoginUser(request);
+        // 设计缓存key
         String redisKey = String.format("yupao:user:recommend:%s", loginUser.getId());
+        // 缓存
         ValueOperations<String, Object> valueOperations = redisTemplate.opsForValue();
+        // 分页
         // 如果有缓存，直接读缓存
         Page<User> userPage = (Page<User>) valueOperations.get(redisKey);
         if (userPage != null) {
@@ -133,8 +136,9 @@ public class UserController {
         // 无缓存，查数据库
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
         userPage = userService.page(new Page<>(pageNum, pageSize), queryWrapper);
-        // 写缓存
+        // 写缓存（快捷键 ctrl + alt + t ---> try-catch包裹
         try {
+            // 记得设置过期时间（timeout），例如：30000就是30秒
             valueOperations.set(redisKey, userPage, 30000, TimeUnit.MILLISECONDS);
         } catch (Exception e) {
             log.error("redis set key error", e);
