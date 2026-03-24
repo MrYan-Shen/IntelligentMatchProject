@@ -9,11 +9,13 @@ import java.util.List;
 
 /**
  * 队伍查询封装类
+ * 为什么需要请求参数包装类：
+ *      1. 请求参数名称 / 类型和实体类不一样
+ *      2. 有一些参数用不到，如果要自动生成接口文档，会增加理解成本
+ *      3. 对个实体类映射到同一个对象
  *
- * @author <a href="https://github.com/liyupi">程序员鱼皮</a>
- * @from <a href="https://yupi.icu">编程导航知识星球</a>
  */
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode(callSuper = true) // 继承父类属性
 @Data
 public class TeamQuery extends PageRequest {
     /**

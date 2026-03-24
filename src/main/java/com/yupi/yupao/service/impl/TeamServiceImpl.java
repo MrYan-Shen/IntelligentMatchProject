@@ -69,7 +69,7 @@ public class TeamServiceImpl extends ServiceImpl<TeamMapper, Team>
         final long userId = loginUser.getId();
         // 3. 校验信息
         //   1. 队伍人数 > 1 且 <= 20
-        int maxNum = Optional.ofNullable(team.getMaxNum()).orElse(0);
+        int maxNum = Optional.ofNullable(team.getMaxNum()).orElse(0);  // maxNum 如果为空的话，默认为 0
         if (maxNum < 1 || maxNum > 20) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR, "队伍人数不满足要求");
         }
@@ -102,7 +102,7 @@ public class TeamServiceImpl extends ServiceImpl<TeamMapper, Team>
             throw new BusinessException(ErrorCode.PARAMS_ERROR, "超时时间 > 当前时间");
         }
         // 7. 校验用户最多创建 5 个队伍
-        // todo 有 bug，可能同时创建 100 个队伍
+        // todo 有 bug，可能同时创建 100 个队伍 ---> 解决办法：加锁
         QueryWrapper<Team> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("userId", userId);
         long hasTeamNum = this.count(queryWrapper);

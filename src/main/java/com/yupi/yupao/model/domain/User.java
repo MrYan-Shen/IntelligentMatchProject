@@ -77,7 +77,7 @@ public class User implements Serializable {
     /**
      * 是否删除
      */
-    @TableLogic
+    @TableLogic // TableLogic：代表此字段为逻辑删除，避免真的删除了数据，只是将数据标记为删除
     private Integer isDelete;
 
     /**

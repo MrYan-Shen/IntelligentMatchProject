@@ -34,8 +34,6 @@ import java.util.stream.Collectors;
 /**
  * 队伍接口
  *
- * @author <a href="https://github.com/liyupi">程序员鱼皮</a>
- * @from <a href="https://yupi.icu">编程导航知识星球</a>
  */
 @RestController
 @RequestMapping("/team")
@@ -59,6 +57,7 @@ public class TeamController {
         }
         User loginUser = userService.getLoginUser(request);
         Team team = new Team();
+        // copyProperties：拷贝属性
         BeanUtils.copyProperties(teamAddRequest, team);
         long teamId = teamService.addTeam(team, loginUser);
         return ResultUtils.success(teamId);
