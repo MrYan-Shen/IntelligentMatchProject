@@ -174,9 +174,6 @@ public class TeamController {
     /**
      * 获取我创建的队伍
      *
-     * @param teamQuery
-     * @param request
-     * @return
      */
     @GetMapping("/list/my/create")
     public BaseResponse<List<TeamUserVO>> listMyCreateTeams(TeamQuery teamQuery, HttpServletRequest request) {
@@ -193,9 +190,6 @@ public class TeamController {
     /**
      * 获取我加入的队伍
      *
-     * @param teamQuery
-     * @param request
-     * @return
      */
     @GetMapping("/list/my/join")
     public BaseResponse<List<TeamUserVO>> listMyJoinTeams(TeamQuery teamQuery, HttpServletRequest request) {

@@ -263,8 +263,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
     /**
      * 是否为管理员
      *
-     * @param loginUser
-     * @return
      */
     @Override
     public boolean isAdmin(User loginUser) {
@@ -274,6 +272,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
     @Override
     public List<User> matchUsers(long num, User loginUser) {
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        // 只查逍想要的字段
         queryWrapper.select("id", "tags");
         queryWrapper.isNotNull("tags");
         List<User> userList = this.list(queryWrapper);
@@ -284,8 +283,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         // 用户列表的下标 => 相似度
         List<Pair<User, Long>> list = new ArrayList<>();
         // 依次计算所有用户和当前用户的相似度
-        for (int i = 0; i < userList.size(); i++) {
-            User user = userList.get(i);
+        for (User user : userList) {
             String userTags = user.getTags();
             // 无标签或者为当前用户自己
             if (StringUtils.isBlank(userTags) || user.getId() == loginUser.getId()) {
@@ -301,7 +299,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         List<Pair<User, Long>> topUserPairList = list.stream()
                 .sorted((a, b) -> (int) (a.getValue() - b.getValue()))
                 .limit(num)
-                .collect(Collectors.toList());
+                .toList();
         // 原本顺序的 userId 列表
         List<Long> userIdList = topUserPairList.stream().map(pair -> pair.getKey().getId()).collect(Collectors.toList());
         QueryWrapper<User> userQueryWrapper = new QueryWrapper<>();
@@ -311,7 +309,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         // 1 => User1, 2 => User2, 3 => User3
         Map<Long, List<User>> userIdUserListMap = this.list(userQueryWrapper)
                 .stream()
-                .map(user -> getSafetyUser(user))
+                .map(this::getSafetyUser)
                 .collect(Collectors.groupingBy(User::getId));
         List<User> finalUserList = new ArrayList<>();
         for (Long userId : userIdList) {
@@ -322,9 +320,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
 
     /**
      * 根据标签搜索用户（SQL 查询版）
-     *
      * @param tagNameList 用户要拥有的标签
-     * @return
      */
     @Deprecated
     private List<User> searchUsersByTagsBySQL(List<String> tagNameList) {

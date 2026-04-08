@@ -9,8 +9,6 @@ import java.util.List;
 /**
  * 算法工具类测试
  *
- * @author <a href="https://github.com/liyupi">程序员鱼皮</a>
- * @from <a href="https://yupi.icu">编程导航知识星球</a>
  */
 public class AlgorithmUtilsTest {
 
@@ -19,7 +17,7 @@ public class AlgorithmUtilsTest {
     void test() {
         String str1 = "鱼皮是狗";
         String str2 = "鱼皮不是狗";
-        String str3 = "负责人 [yupi](https://t.zsxq.com/0emozsIJh)";
+        String str3 = "鱼皮是狗不是狗";
 //        String str4 = "鱼皮是猫";
         // 1
         int score1 = AlgorithmUtils.minDistance(str1, str2);
